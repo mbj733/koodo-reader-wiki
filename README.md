@@ -1,227 +1,64 @@
-<div align="left">
+# Koodo Reader + LLM Wiki
 
-[简体中文](https://github.com/koodo-reader/koodo-reader/blob/master/README_cn.md) | [हिंदी](https://github.com/koodo-reader/koodo-reader/blob/master/README_hi.md)
-|[Português](https://github.com/koodo-reader/koodo-reader/blob/master/README_pt.md) | [Indonesian](https://github.com/koodo-reader/koodo-reader/blob/master/README_id.md) | English
+[Koodo Reader](https://github.com/koodo-reader/koodo-reader) 的社区修改版，新增 **LLM Wiki** 功能。
 
-</div>
+## 新增功能
 
-<div align="center" >
-  <img src="https://dl.koodoreader.com/screenshots/logo.png" width="96px" height="96px"/>
-</div>
+在阅读小说时，AI 自动生成结构化 Wiki：
 
-<h1 align="center">
-  Koodo Reader
-</h1>
+- 👤 **角色档案**：姓名、性格、背景、人物关系
+- 📖 **剧情摘要**：主线故事、关键事件、章节划分
+- 📚 **术语词典**：专有名词、世界观设定
+- 🌍 **世界观**：力量体系、关键地点、组织派系
 
-<h3 align="center">
-  A cross-platform ebook reader
-</h3>
-<div align="center">
+## 支持的 AI 模型
 
-[Download](https://koodoreader.com/en) | [Preview](https://web.koodoreader.com) | [Roadmap](https://koodoreader.com/en/roadmap) | [Document](https://koodoreader.com/en/document) | [Plugins](https://koodoreader.com/en/plugin)
+25+ Provider，用户自选模型和 API Key：
 
-</div>
+| Provider | 类型 |
+|----------|------|
+| OpenAI / Anthropic / Google Gemini | 云端 API |
+| DeepSeek / 智谱 / 通义千问 / 豆包 / 混元 | 国内大模型 |
+| Ollama / LM Studio / vLLM | 本地部署（零成本） |
+| OpenRouter / Together AI / Groq 等 | 聚合平台 |
 
-## Preview
+## 使用方式
 
-<div align="center">
-  <br/>
-  <br/>
-  <img src="https://dl.koodoreader.com/screenshots/7.png" width="800px">
-  <br/>
-  <br/>
-  <img src="https://dl.koodoreader.com/screenshots/8.png" width="800px">
-  <br/>
-  <br/>
-</div>
+1. 设置 → AI 设置 → 添加模型 → 分配给 "AI wiki model"
+2. 打开一本书 → 导航栏 → **Wiki** 标签
+3. 点击 "Generate Full Wiki" 或按分类生成
+4. LLM 分析全书文本，流式生成结构化 Wiki
 
-## Features
+## 快速开始
 
-- Format support:
-  - EPUB (**.epub**)
-  - PDF (**.pdf**)
-  - DRM-free Mobipocket (**.mobi**) and Kindle (**.azw3**, **.azw**)
-  - Plain-text (**.txt**)
-  - FictionBook (**.fb2**)
-  - Comic book archive (**.cbr**, **.cbz**, **.cbt**, **.cb7**)
-  - Rich text (**.md**, **.docx**)
-  - HyperText (**.html**, **.xml**, **.xhtml**, **.mhtml**, **.htm**)
-- Platform support: **Windows**, **macOS**, **Linux**, **Android**, **iOS** and **Web**
-- Sync and backup your data with **OneDrive**, **Google Drive**, **Dropbox**, **iCloud**, **MEGA**, **pCloud**, **Yandex Disk**, **Box**, **FTP**, **SFTP**, **WebDAV**, **SMB**, or **Object Storage**
-- Easily import books from **OneDrive**, **Google Drive**, **MEGA**, **Yandex Disk**, **Box**, **FTP**, **SFTP**, **WebDAV**, **SMB**, or **Object Storage**
-- Use your custom AI model to power AI Translation, AI Dictionary, AI Summarization, and AI Encyclopedia
-- Sync reading progress with **KOReader**
-- Sync notes and highlights to **Readwise**, **Notion**, **Obsidian**, **Joplin**, and more
-- Support local MDX dictionary lookup
-- Automatically sync words to **Anki** and **Eudic**
-- Protect your library with password, PIN, Windows Hello, Touch ID, and more
-- One-click export of all books
-- One-click export of notes and highlights, supporting **CSV**, **Markdown**, **HTML**, **TXT**, and **PDF**
-- Privacy-first design: no tracking services, and no proactive uploading of your reading data or personal information
-- Support **OPDS** protocol and share your library as an **OPDS** feed
-- Support browser extension to save anything on the web to your library
-- Built-in 50+ plugins for translation, dictionaries, and text-to-speech, with support for custom plugins
-- Support vertical layout book
-- Support reading statistics
-- Built-in **Paddle** and **Tesseract** OCR engines
-- Support library snapshots and version control
-- Single-column, two-column or continuous scrolling layouts
-- Text-to-speech, translation, dictionary, touch screen support, and batch import
-- Add bookmarks, notes, and highlights to your books
-- Adjust font size, font family, line-spacing, paragraph spacing, background color, text color, margins, and brightness
-- Night mode and theme color
-- Text highlighting, underline, boldness, italics, and shadow
-
-## Installation
-
-### Desktop version: [Download](https://koodoreader.com/en/download)
-
-### Web version：[Visit](https://web.koodoreader.com)
-
-### Android version：[Download](https://koodoreader.com/en/download)
-
-### iOS version：[Download](https://koodoreader.com/en/download)
-
-### Browser extension：[Download](https://www.koodoreader.com/en/use-extension)
-
-### Install with Scoop:
-
-```shell
-scoop bucket add extras
-scoop install extras/koodo-reader
+```bash
+git clone https://github.com/mbj733/koodo-reader-wiki.git
+cd koodo-reader-wiki
+yarn install
+yarn build
+yarn ele        # 开发模式启动
+yarn release    # 打包安装包
 ```
 
-### Install with Homebrew:
+## 源码改动
 
-```shell
-brew install --cask koodo-reader
-```
+| 新增文件 | 说明 |
+|---------|------|
+| `src/models/Wiki.ts` | WikiEntry 数据模型 |
+| `src/utils/wiki/prompts.ts` | Prompt 模板 |
+| `src/utils/wiki/wikiService.ts` | LLM 调用 + 文本提取 + 解析 |
+| `src/containers/wiki/WikiPanel.tsx` | Wiki 面板 UI |
+| `src/containers/wiki/wikiPanel.css` | 样式 |
 
-### Install with Docker:
+| 修改文件 | 说明 |
+|---------|------|
+| `src/store/index.tsx` | stateType 新增 wikis |
+| `src/store/reducers/reader.tsx` | initState + HANDLE_WIKIS |
+| `src/store/actions/reader.tsx` | CRUD actions |
+| `src/store/actions/manager.tsx` | plugin 注册 |
+| `src/containers/settings/aiSetting/*` | Wiki 模型分配 |
+| `src/containers/panels/navigationPanel/*` | Wiki 标签页 |
 
-[Installation Guide](https://koodoreader.com/en/deploy-docker)
+## License
 
-## Screenshot
-
-<div align="center">
-  <b>Book list</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/1.png" width="800px"></kbd>
-  <br/>
-  <br/>
-  <b>Book display</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/5.png" width="800px"></kbd>
-  <br/>
-  <br/>
-  <b>List mode</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/2.png" width="800px"></kbd>
-  <br/>
-  <br/>
-  <b>Cover mode</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/3.png" width="800px"></kbd>
-  <br/>
-  <br/>
-  <b>Reader menu</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/6.png" width="800px"></kbd>
-  <br/>
-  <br/>
-  <b>Dark mode</b>
-  <br/>
-  <br/>
-  <kbd><img src="https://dl.koodoreader.com/screenshots/4.png" width="800px"></kbd>
-  <br/>
-</div>
-
-## Develop
-
-Make sure that you have installed yarn and git
-
-1. Download the repo
-
-   ```
-   git clone https://github.com/koodo-reader/koodo-reader.git
-   ```
-
-2. Enter desktop mode
-
-   ```
-   yarn
-   yarn dev
-   ```
-
-3. Enter web mode
-
-   ```
-   yarn
-   yarn start
-   ```
-
-## Translation
-
-### Edit current language
-
-1. Select your target language from the following list.
-
-2. Click the view button to examine the source file. The untranslated terms are listed at the bottom of each file.
-
-3. Translate the terms to your target language based on the given English reference
-
-4. Submit the translation file or just translation snippets based on the amount of your translation to [this link](https://github.com/koodo-reader/koodo-reader/issues/new?assignees=&labels=submit+translation&projects=&template=submit_translation.yml). Pull request is also welcomed.
-
-| Language(A-Z)   | Code  | View                                    |
-| --------------- | ----- | --------------------------------------- |
-| Amharic         | am    | [View](./src/assets/locales/am.json)    |
-| Arabic          | ar    | [View](./src/assets/locales/ar.json)    |
-| Armenian        | hy    | [View](./src/assets/locales/hy.json)    |
-| Bengali         | bn    | [View](./src/assets/locales/bn.json)    |
-| Bulgarian       | bg    | [View](./src/assets/locales/bg.json)    |
-| Chinese (CN)    | zh-CN | [View](./src/assets/locales/zh-CN.json) |
-| Chinese (MO)    | zh-MO | [View](./src/assets/locales/zh-MO.json) |
-| Chinese (TW)    | zh-TW | [View](./src/assets/locales/zh-TW.json) |
-| Czech           | cs    | [View](./src/assets/locales/cs.json)    |
-| Danish          | da    | [View](./src/assets/locales/da.json)    |
-| Dutch           | nl    | [View](./src/assets/locales/nl.json)    |
-| English         | en    | [View](./src/assets/locales/en.json)    |
-| Finnish         | fi    | [View](./src/assets/locales/fi.json)    |
-| French          | fr    | [View](./src/assets/locales/fr.json)    |
-| German          | de    | [View](./src/assets/locales/de.json)    |
-| Greek           | el    | [View](./src/assets/locales/el.json)    |
-| Hindi           | hi    | [View](./src/assets/locales/hi.json)    |
-| Hungarian       | hu    | [View](./src/assets/locales/hu.json)    |
-| Indonesian      | id    | [View](./src/assets/locales/id.json)    |
-| Interlingue     | ie    | [View](./src/assets/locales/ie.json)    |
-| Irish           | ga    | [View](./src/assets/locales/ga.json)    |
-| Italian         | it    | [View](./src/assets/locales/it.json)    |
-| Japanese        | ja    | [View](./src/assets/locales/ja.json)    |
-| Korean          | ko    | [View](./src/assets/locales/ko.json)    |
-| Persian         | fa    | [View](./src/assets/locales/fa.json)    |
-| Polish          | pl    | [View](./src/assets/locales/pl.json)    |
-| Portuguese      | pt    | [View](./src/assets/locales/pt.json)    |
-| Portuguese (BR) | pt-BR | [View](./src/assets/locales/pt-BR.json) |
-| Romanian        | ro    | [View](./src/assets/locales/ro.json)    |
-| Russian         | ru    | [View](./src/assets/locales/ru.json)    |
-| Slovenian       | sl    | [View](./src/assets/locales/sl.json)    |
-| Spanish         | es    | [View](./src/assets/locales/es.json)    |
-| Swedish         | sv    | [View](./src/assets/locales/sv.json)    |
-| Tamil           | ta    | [View](./src/assets/locales/ta.json)    |
-| Thai            | th    | [View](./src/assets/locales/th.json)    |
-| Tagalog         | tl    | [View](./src/assets/locales/tl.json)    |
-| Tibetan         | bo    | [View](./src/assets/locales/bo.json)    |
-| Turkish         | tr    | [View](./src/assets/locales/tr.json)    |
-| Ukrainian       | uk    | [View](./src/assets/locales/uk.json)    |
-| Vietnamese      | vi    | [View](./src/assets/locales/vi.json)    |
-
-### Add new language
-
-1. If you can't find your target language from the above list, download the English source file from [this link](./src/assets/locales/en.json).
-
-2. When you're finished translating, submit the source file to [this link](https://github.com/koodo-reader/koodo-reader/issues/new?assignees=&labels=submit+translation&projects=&template=submit_translation.yml). Pull requests are also welcome.
+基于 [Koodo Reader](https://github.com/koodo-reader/koodo-reader) (AGPL-3.0) 修改，本仓库同样遵循 AGPL-3.0 协议。
